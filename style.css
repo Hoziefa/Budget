@@ -1,0 +1,365 @@
+/**********************************************
+*** GENERAL
+**********************************************/
+
+:root {
+  font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:focus {
+  outline: none !important;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+body {
+  color: #333;
+  font-family: "IBM Plex Sans Text", "Open Sans";
+  font-weight: 400;
+  position: relative;
+  background-image: repeating-linear-gradient(60deg, #f5f5f5, #fff 15%);
+
+  font-size: 1rem;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-user-select: none;
+}
+
+.right {
+  float: right;
+}
+.red {
+  color: #ff5049 !important;
+}
+.red-focus:focus {
+  border-color: #ff5049 !important;
+}
+
+/**********************************************
+*** TOP PART
+**********************************************/
+
+.top {
+  height: 50vh;
+  background-image: linear-gradient(hsla(0, 0%, 0%, 0.65), hsla(0, 0%, 0%, 0.35)),
+    url("./images/savings-2789112_1920.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.budget {
+  position: absolute;
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+
+.budget__title {
+  font-size: 2.25rem;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.budget__value {
+  font-weight: 300;
+  font-size: 2.55rem;
+  text-align: center;
+  margin-bottom: 1.55rem;
+  letter-spacing: 2px;
+}
+
+.budget__income,
+.budget__expenses {
+  padding: 0.9rem;
+  text-transform: uppercase;
+  font-size: 1.22rem;
+  letter-spacing: 2px;
+}
+
+.budget__income {
+  margin-bottom: 10px;
+  background-color: #28b9b5;
+  /* background-color: #28b9b5c7; */
+}
+
+.budget__expenses {
+  background-color: #ff5049;
+  /* background-color: #ff5049bf; */
+}
+
+.budget__income--text,
+.budget__expenses--text {
+  float: left;
+  font-size: 1.35rem;
+  color: #ffffff;
+  margin-top: 2px;
+  font-weight: 700;
+  font-family: "agency fb";
+}
+
+.budget__income--value,
+.budget__expenses--value {
+  letter-spacing: 1px;
+  float: left;
+  font-variant-numeric: slashed-zero;
+}
+
+.budget__income--percentage,
+.budget__expenses--percentage {
+  float: left;
+  width: 34px;
+  font-size: 0.8rem;
+  padding: 3px 0;
+  margin-left: 10px;
+}
+
+.budget__expenses--percentage {
+  background-color: rgba(255, 255, 255, 0.2);
+  text-align: center;
+  border-radius: 3px;
+}
+
+/**********************************************
+*** BOTTOM PART
+**********************************************/
+
+/***** FORM *****/
+.add {
+  padding: 1rem;
+  border-bottom: 3px solid #e7e7e7;
+  background-color: #eee;
+  background: linear-gradient(to right, #eee, #eee 60%, #28b9b5); /* 6dd5fa 2980b9 */
+  background-image: linear-gradient(315deg, #fdfbfb, #ebedee);
+
+  /* background-color: #f7f7f7; */
+  /* background-image: repeating-linear-gradient(60deg, #f5f5f5, #fff 5%); */
+}
+
+.add__container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.add__type {
+  width: 55px;
+  border: 1px solid #e7e7e7;
+  height: 44px;
+  font-size: 1.22rem;
+  color: inherit;
+  background-color: #fff;
+  margin-right: 10px;
+  font-weight: 300;
+  transition: border 0.3s;
+}
+
+.add__description,
+.add__value {
+  border: 1px solid #e7e7e7;
+  background-color: #fff;
+  color: inherit;
+  font-family: inherit;
+  font-size: 1.22rem;
+  padding: 12px 15px;
+  margin-right: 10px;
+  border-radius: 5px;
+  transition: border 0.3s;
+}
+
+.add__description {
+  width: 400px;
+}
+.add__value {
+  width: 100px;
+}
+
+.add__btn {
+  font-size: 3rem;
+  background: none;
+  border: none;
+  color: #28b9b5;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.1;
+  margin-left: 10px;
+}
+
+.add__btn:active {
+  transform: translateY(2px);
+}
+
+.add__type,
+.add__description,
+.add__value {
+  border: 2px solid transparent;
+}
+
+.add__type:focus,
+.add__description:focus,
+.add__value:focus {
+  outline: none;
+  border-color: #28b9b5;
+}
+
+.add__btn:focus {
+  outline: none;
+}
+
+/***** LISTS *****/
+.container {
+  width: 1000px;
+  margin: 60px auto;
+}
+
+.income {
+  float: left;
+  width: 475px;
+  margin-right: 50px;
+}
+
+.expenses {
+  float: left;
+  width: 475px;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.income__title {
+  color: #28b9b5;
+}
+.expenses__title {
+  color: #ff5049;
+}
+
+.item {
+  padding: 13px;
+  /* border-bottom: 1px solid #e7e7e7; */
+  border-bottom: 1px solid hsl(0, 0%, 80%);
+}
+
+.item:first-child {
+  /* border-top: 1px solid #e7e7e7; */
+  border-top: 1px solid hsl(0, 0%, 80%);
+}
+.item:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.item__description,
+.item__value {
+  font-size: 1.2rem;
+}
+
+.item__description {
+  float: left;
+}
+
+.item__value {
+  float: left;
+  transition: transform 0.3s;
+}
+
+.item__percentage {
+  float: left;
+  margin-left: 20px;
+  transition: transform 0.3s;
+  font-size: 1rem;
+  background-color: #ffdad9;
+  padding: 3px;
+  border-radius: 3px;
+  width: fit-content;
+  text-align: center;
+}
+
+.income .item__value,
+.income .item__delete--btn {
+  color: #28b9b5;
+}
+
+.expenses .item__value,
+.expenses .item__percentage,
+.expenses .item__delete--btn {
+  color: #ff5049;
+}
+
+.item__delete {
+  float: left;
+}
+
+.item__delete--btn {
+  font-size: 1.65rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  display: none;
+}
+
+.item__delete--btn:active {
+  transform: translateY(2px);
+}
+
+.item:hover .item__delete--btn {
+  display: block;
+}
+.item:hover .item__value {
+  transform: translateX(-20px);
+}
+.item:hover .item__percentage {
+  transform: translateX(-20px);
+}
+
+.unpaid {
+  background-color: #ffdad9 !important;
+  cursor: pointer;
+  color: #ff5049;
+}
+
+.unpaid .item__percentage {
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+}
+.unpaid:hover .item__description {
+  font-weight: 900;
+}
+
+.message {
+  position: fixed;
+  left: 5%;
+  bottom: -100%;
+  width: fit-content;
+  background-color: #333;
+  color: #f5f5f5;
+  transition: bottom 0.3s;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.message.active {
+  bottom: 10%;
+}
