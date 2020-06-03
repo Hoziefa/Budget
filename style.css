@@ -97,6 +97,10 @@ body {
   vertical-align: middle;
 }
 
+.budget__value i:nth-of-type(2) {
+  font-size: 2rem;
+}
+
 .budget__income,
 .budget__expenses {
   padding: 0.9rem;
@@ -137,6 +141,11 @@ body {
 .budget__expenses--value i {
   font-size: 0.85rem;
   vertical-align: middle;
+}
+
+.budget__income--value i:nth-of-type(2),
+.budget__expenses--value i:nth-of-type(2) {
+  font-size: 1.2rem;
 }
 
 .budget__income--percentage,
@@ -316,6 +325,10 @@ h2 {
 .item__value i {
   font-size: 0.8rem;
   vertical-align: middle;
+}
+
+.item__value i:nth-of-type(2) {
+  font-size: 1.1rem;
 }
 
 .item__percentage {

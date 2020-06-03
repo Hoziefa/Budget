@@ -131,7 +131,9 @@ const UIController = (_ => {
 
     if (int.length > 3) int = `${int.substring(0, int.length - 3)},${int.substring(int.length - 3)}`;
 
-    return `${type === "exp" ? `<i class="fas fa-minus"></i>` : `<i class="fas fa-plus"></i>`} ${int}.${dec}$`;
+    return `${
+      type === "exp" ? `<i class="fas fa-minus"></i>` : `<i class="fas fa-plus"></i>`
+    } ${int}.${dec}<i class="fas fa-dollar-sign"></i>`;
   };
 
   return {
