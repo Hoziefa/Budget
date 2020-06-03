@@ -1,9 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
 /**********************************************
 *** GENERAL
 **********************************************/
 
 :root {
   font-size: 16px;
+  --primary-color: #28b9b5;
+  --secondary-color: #ff5049;
 }
 
 *,
@@ -26,7 +32,7 @@
 
 body {
   color: #333;
-  font-family: "IBM Plex Sans Text", "Open Sans";
+  font-family: "Roboto 600", sans-serif;
   font-weight: 400;
   position: relative;
   background-image: repeating-linear-gradient(60deg, #f5f5f5, #fff 15%);
@@ -43,10 +49,10 @@ body {
   float: right;
 }
 .red {
-  color: #ff5049 !important;
+  color: var(--secondary-color) !important;
 }
 .red-focus:focus {
-  border-color: #ff5049 !important;
+  border-color: var(--secondary-color) !important;
 }
 
 /**********************************************
@@ -63,16 +69,16 @@ body {
 }
 
 .budget {
-  position: absolute;
-  width: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   color: #fff;
+  min-height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .budget__title {
-  font-size: 2.25rem;
+  font-size: 2.65rem;
   text-align: center;
   margin-bottom: 10px;
   font-weight: 300;
@@ -86,21 +92,27 @@ body {
   letter-spacing: 2px;
 }
 
+.budget__value i {
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
 .budget__income,
 .budget__expenses {
   padding: 0.9rem;
   text-transform: uppercase;
   font-size: 1.22rem;
   letter-spacing: 2px;
+  width: 50%;
 }
 
 .budget__income {
   margin-bottom: 10px;
-  background-color: #28b9b5;
+  background-color: var(--primary-color);
 }
 
 .budget__expenses {
-  background-color: #ff5049;
+  background-color: var(--secondary-color);
 }
 
 .budget__income--text,
@@ -110,20 +122,27 @@ body {
   color: #ffffff;
   margin-top: 2px;
   font-weight: 700;
-  font-family: "agency fb";
+  font-family: "Agency FB", sans-serif;
 }
 
 .budget__income--value,
 .budget__expenses--value {
   letter-spacing: 1px;
   float: left;
-  font-variant-numeric: slashed-zero;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.budget__income--value i,
+.budget__expenses--value i {
+  font-size: 0.85rem;
+  vertical-align: middle;
 }
 
 .budget__income--percentage,
 .budget__expenses--percentage {
   float: left;
-  width: 34px;
+  width: 40px;
   font-size: 0.8rem;
   padding: 3px 0;
   margin-left: 10px;
@@ -133,7 +152,6 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
   text-align: center;
   border-radius: 3px;
-  width: fit-content;
 }
 
 /**********************************************
@@ -181,15 +199,16 @@ body {
 .add__description {
   width: 40%;
 }
+
 .add__value {
-  width: 100px;
+  width: 110px;
 }
 
 .add__btn {
   font-size: 2.7rem;
   background: none;
   border: none;
-  color: #28b9b5;
+  color: var(--primary-color);
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
@@ -205,20 +224,24 @@ body {
 .add__description,
 .add__value {
   border: 2px solid transparent;
+  font-family: monospace, sans-serif;
 }
 
 .add__type:focus,
 .add__description:focus,
 .add__value:focus {
   outline: none;
-  border-color: #28b9b5;
+  border-color: var(--primary-color);
 }
 
 /***** LISTS *****/
 .container {
   width: 70%;
-  margin: 60px auto;
   display: flex;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 60px auto;
+  position: relative;
 }
 
 .income {
@@ -237,23 +260,41 @@ h2 {
   margin-bottom: 15px;
 }
 
+.income .income__title,
+.expenses .expenses__title {
+  text-align: center;
+  font-size: 1.35rem;
+}
+
 .income__title {
-  color: #28b9b5;
+  color: var(--primary-color);
 }
 .expenses__title {
-  color: #ff5049;
+  color: var(--secondary-color);
+}
+
+.income .item {
+  border-bottom: 1px ridge var(--primary-color);
+}
+
+.expenses .item {
+  border-bottom: 1px ridge var(--secondary-color);
 }
 
 .item {
   padding: 13px;
-  border-bottom: 1px solid hsl(0, 0%, 80%);
   display: flex;
   font-family: "Poppins";
 }
 
-.item:first-child {
-  border-top: 1px solid hsl(0, 0%, 80%);
+.income .item:first-child {
+  border-top: 1px ridge var(--primary-color);
 }
+
+.expenses .item:first-child {
+  border-top: 1px ridge var(--secondary-color);
+}
+
 .item:nth-child(even) {
   background-color: #f7f7f7;
 }
@@ -272,6 +313,11 @@ h2 {
   font-variant-numeric: diagonal-fractions;
 }
 
+.item__value i {
+  font-size: 0.8rem;
+  vertical-align: middle;
+}
+
 .item__percentage {
   transition: transform 0.3s;
   font-size: 1rem;
@@ -284,23 +330,19 @@ h2 {
 
 .income .item__value,
 .income .item__delete--btn {
-  color: #28b9b5;
+  color: var(--primary-color);
 }
 
 .expenses .item__value,
 .expenses .item__percentage,
 .expenses .item__delete--btn {
-  color: #ff5049;
+  color: var(--secondary-color);
 }
 
 .item__percentage,
 .item__value,
 .item__delete {
   display: inline-block;
-}
-
-.item__delete {
-  margin-left: 2rem;
 }
 
 .item__delete--btn {
@@ -320,9 +362,11 @@ h2 {
 .item:hover .item__delete--btn {
   opacity: 1;
 }
+
 .item:hover .item__value {
   transform: translateX(-20px);
 }
+
 .item:hover .item__percentage {
   transform: translateX(-20px);
 }
@@ -330,12 +374,13 @@ h2 {
 .unpaid {
   background-color: #ffdad9 !important;
   cursor: pointer;
-  color: #ff5049;
+  color: var(--secondary-color);
 }
 
 .unpaid .item__percentage {
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
 }
+
 .unpaid:hover .item__description {
   font-weight: 900;
 }
@@ -357,9 +402,25 @@ h2 {
   bottom: 10%;
 }
 
+@media (max-width: 991px) {
+  .container {
+    width: 100%;
+  }
+
+  .budget__income,
+  .budget__expenses {
+    width: 70%;
+  }
+}
+
 @media (max-width: 600px) {
   :root {
     font-size: 12px !important;
+  }
+
+  .budget__income,
+  .budget__expenses {
+    width: 90% !important;
   }
 
   .container {
@@ -368,12 +429,13 @@ h2 {
 
   .income,
   .expenses {
-    flex: 1 0 100% !important;
-    max-width: 100% !important;
+    flex: 1 0 80% !important;
+    max-width: 80% !important;
+    margin: 0 auto;
   }
 
   .income {
-    margin-bottom: 4rem;
+    margin-bottom: 4rem !important;
   }
 
   .income .income__title,
@@ -381,22 +443,29 @@ h2 {
     text-align: center;
   }
 
-  .item__description + div {
-    flex: 1 !important;
-  }
-
   .add__description {
-    width: 75%;
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width: 991px) {
-  .budget {
-    width: 90% !important;
+    width: 75% !important;
+    margin-bottom: 1rem !important;
   }
 
-  .container {
-    width: 100%;
+  .add__type,
+  .add__description,
+  .add__value {
+    font-weight: 600;
+  }
+
+  .add__value {
+    width: 75% !important;
+    margin-left: 9px;
+  }
+
+  .add__type {
+    font-size: 1.7rem !important;
+  }
+
+  .add__btn {
+    float: left;
+    margin-top: 7px;
+    margin-left: 28px !important;
   }
 }

@@ -131,7 +131,7 @@ const UIController = (_ => {
 
     if (int.length > 3) int = `${int.substring(0, int.length - 3)},${int.substring(int.length - 3)}`;
 
-    return `${type === "exp" ? "-" : "+"} ${int}.${dec}$`;
+    return `${type === "exp" ? `<i class="fas fa-minus"></i>` : `<i class="fas fa-plus"></i>`} ${int}.${dec}$`;
   };
 
   return {
@@ -205,11 +205,20 @@ const UIController = (_ => {
       let type;
       budget > 0 ? (type = "inc") : (type = "exp");
 
-      document.querySelector(DOMStrings.budgetLabel).textContent = formatNumber(budget, type);
+      document.querySelector(DOMStrings.budgetLabel).textContent = "";
+      document
+        .querySelector(DOMStrings.budgetLabel)
+        .insertAdjacentHTML("afterbegin", `${formatNumber(budget, type)}`);
 
-      document.querySelector(DOMStrings.incomeLabel).textContent = formatNumber(totalInc, "inc");
+      document.querySelector(DOMStrings.incomeLabel).textContent = "";
+      document
+        .querySelector(DOMStrings.incomeLabel)
+        .insertAdjacentHTML("afterbegin", `${formatNumber(totalInc, "inc")}`);
 
-      document.querySelector(DOMStrings.expensesLabel).textContent = formatNumber(totalExp, "exp");
+      document.querySelector(DOMStrings.expensesLabel).textContent = "";
+      document
+        .querySelector(DOMStrings.expensesLabel)
+        .insertAdjacentHTML("afterbegin", formatNumber(totalExp, "exp"));
 
       const percent = document.querySelector(DOMStrings.percentageLabel);
 
