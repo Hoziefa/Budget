@@ -224,7 +224,9 @@ const UIController = (_ => {
 
       const percent = document.querySelector(DOMStrings.percentageLabel);
 
-      percentage > 0 ? (percent.textContent = `${percentage}%`) : (percent.textContent = `---`);
+      percentage > 0 && percentage < 10000
+        ? (percent.textContent = `${percentage}%`)
+        : (percent.textContent = `---`);
     },
 
     displayPercentages(percentages) {
