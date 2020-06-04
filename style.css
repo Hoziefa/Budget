@@ -450,7 +450,7 @@ h2 {
 
 @media only screen and (max-width: 600px) {
   :root {
-    font-size: 14px !important;
+    font-size: 12px !important;
   }
 
   .budget__title {
