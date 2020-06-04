@@ -43,6 +43,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-user-select: none;
+  zoom: 1;
 }
 
 .right {
@@ -98,7 +99,8 @@ body {
 }
 
 .budget__value i:nth-of-type(2) {
-  font-size: 2rem;
+  font-size: smaller;
+  vertical-align: baseline;
 }
 
 .budget__income,
@@ -146,6 +148,7 @@ body {
 .budget__income--value i:nth-of-type(2),
 .budget__expenses--value i:nth-of-type(2) {
   font-size: 1.2rem;
+  vertical-align: baseline;
 }
 
 .budget__income--percentage,
@@ -328,7 +331,9 @@ h2 {
 }
 
 .item__value i:nth-of-type(2) {
-  font-size: 1.1rem;
+  font-size: inherit;
+  vertical-align: baseline;
+  margin-left: 1.5px;
 }
 
 .item__percentage {
@@ -415,7 +420,7 @@ h2 {
   bottom: 10%;
 }
 
-@media (max-width: 991px) {
+@media only screen and (max-width: 991px) {
   .container {
     width: 100%;
   }
@@ -426,9 +431,30 @@ h2 {
   }
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+  }
+
+  .income,
+  .expenses {
+    flex: 1 0 80% !important;
+    max-width: 80% !important;
+    margin: 0 auto;
+  }
+
+  .income {
+    margin-bottom: 4rem !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
   :root {
-    font-size: 12px !important;
+    font-size: 14px !important;
+  }
+
+  .budget__title {
+    font-size: 2.4rem !important;
   }
 
   .budget__income,
@@ -480,5 +506,20 @@ h2 {
     float: left;
     margin-top: 7px;
     margin-left: 28px !important;
+  }
+
+  .add__description,
+  .add__value {
+    font-size: 1.42rem;
+  }
+
+  .income .income__title,
+  .expenses .expenses__title {
+    font-size: 1.5rem !important;
+  }
+
+  .item__description,
+  .item__value {
+    font-size: 1.42rem !important;
   }
 }
