@@ -61,7 +61,7 @@ body {
 **********************************************/
 
 .top {
-  height: 50vh;
+  min-height: 50vh;
   background-image: linear-gradient(hsla(0, 0%, 0%, 0.65), hsla(0, 0%, 0%, 0.35)),
     url("./images/savings-2789112_1920.jpg");
   background-size: cover;
