@@ -322,7 +322,6 @@ h2 {
 
 .item__value {
   transition: transform 0.3s;
-  font-variant-numeric: diagonal-fractions;
 }
 
 .item__value i {
