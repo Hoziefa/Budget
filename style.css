@@ -147,7 +147,7 @@ body {
 
 .budget__income--value i:nth-of-type(2),
 .budget__expenses--value i:nth-of-type(2) {
-  font-size: 1.2rem;
+  font-size: small;
   vertical-align: baseline;
 }
 
@@ -330,7 +330,7 @@ h2 {
 }
 
 .item__value i:nth-of-type(2) {
-  font-size: inherit;
+  font-size: small;
   vertical-align: baseline;
   margin-left: 1.5px;
 }
