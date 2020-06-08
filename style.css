@@ -225,7 +225,6 @@ body {
   display: inline-block;
   vertical-align: middle;
   line-height: 1.1;
-  margin-left: 10px;
 }
 
 .add__btn:active {
@@ -248,7 +247,7 @@ body {
 
 /***** LISTS *****/
 .container {
-  width: 70%;
+  width: 85%;
   display: flex;
   padding-left: 15px;
   padding-right: 15px;
@@ -467,8 +466,8 @@ h2 {
 
   .income,
   .expenses {
-    flex: 1 0 80% !important;
-    max-width: 80% !important;
+    flex: 1 0 90% !important;
+    max-width: 90% !important;
     margin: 0 auto;
   }
 
@@ -481,37 +480,6 @@ h2 {
     text-align: center;
   }
 
-  .add__description {
-    width: 75% !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .add__type,
-  .add__description,
-  .add__value {
-    font-weight: 600;
-  }
-
-  .add__value {
-    width: 75% !important;
-    margin-left: 9px;
-  }
-
-  .add__type {
-    font-size: 1.7rem !important;
-  }
-
-  .add__btn {
-    float: left;
-    margin-top: 7px;
-    margin-left: 28px !important;
-  }
-
-  .add__description,
-  .add__value {
-    font-size: 1.42rem;
-  }
-
   .income .income__title,
   .expenses .expenses__title {
     font-size: 1.5rem !important;
@@ -520,5 +488,48 @@ h2 {
   .item__description,
   .item__value {
     font-size: 1.42rem !important;
+  }
+
+  .add__container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .add__type,
+  .add__description,
+  .add__value {
+    font-weight: 600;
+  }
+
+  .add__description,
+  .add__value {
+    font-size: 1.42rem;
+  }
+
+  .add__description {
+    margin-bottom: 1rem !important;
+    flex: 1 0 80%;
+    margin-right: 0 !important;
+  }
+
+  .add__type {
+    font-size: 1.7rem !important;
+    flex: 1 0 17%;
+    margin-top: -13px;
+  }
+
+  .add__value {
+    order: 4;
+    flex: 1 0 80%;
+    margin: 0 !important;
+  }
+
+  .add__btn {
+    margin-top: 7px;
+    order: 3;
+    flex: 1 0 20%;
+    padding-right: 1rem;
   }
 }
