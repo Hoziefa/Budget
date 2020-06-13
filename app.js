@@ -136,6 +136,8 @@ const UIController = (_ => {
     } ${int}.${dec}<i class="fas fa-dollar-sign"></i>`;
   };
 
+  let timeOut;
+
   return {
     get getInputData() {
       return {
@@ -279,7 +281,9 @@ const UIController = (_ => {
 
       DOMStrings.message.classList.add("active");
 
-      setTimeout(() => DOMStrings.message.classList.remove("active"), 2500);
+      timeOut && clearTimeout(timeOut);
+
+      timeOut = setTimeout(() => DOMStrings.message.classList.remove("active"), 2000);
     },
 
     get getDOMStrings() {
