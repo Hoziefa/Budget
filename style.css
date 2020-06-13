@@ -1,6 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cutive&display=swap');
 
 /**********************************************
 *** GENERAL
@@ -44,6 +43,19 @@ body {
   overflow-x: hidden;
   -webkit-user-select: none;
   zoom: 1;
+}
+
+
+body::-webkit-scrollbar {
+  width: 0.55rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
 }
 
 .right {
@@ -554,4 +566,17 @@ h2 {
     flex-basis: 17%;
     max-width: 17%;
   }
+}
+
+/* FOOTER */
+footer.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8vh;
+  background: transparent;
+  font-size: 1.1rem;
+  font-family: 'Comic sans MS', "Cutive";
+  margin-top: 22vh;
+  text-transform: capitalize;
 }
