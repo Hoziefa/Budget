@@ -52,10 +52,7 @@ const budgetController = (_ => {
 
   return {
     addItem(type, des, val) {
-      let ID;
-
-      if (data.allItems[type].length > 0) ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
-      else ID = 0;
+      let ID = data.allItems[type][data.allItems[type].length - 1]?.id + 1 || 0;
 
       let newItem;
       if (type === "exp") newItem = new Expenses(ID, des, val);
@@ -98,7 +95,7 @@ const budgetController = (_ => {
     },
 
     checkItem: (type, desc, val) =>
-      data.allItems[type].some(el => el.description.includes(desc) && el.value === val),
+      data.allItems[type].some(({ description, value }) => description.includes(desc) && value === val),
   };
 })();
 
@@ -299,9 +296,7 @@ const controller = ((budgetCtrl, UICtrl) => {
 
     document.querySelector(DOM.addBtn).addEventListener("click", ctrlAddItem);
 
-    document.addEventListener("keypress", e => {
-      if (e.code === "Enter") ctrlAddItem();
-    });
+    document.addEventListener("keypress", e => e.code === "Enter" && ctrlAddItem());
 
     document.querySelector(DOM.container).addEventListener("click", ctrlDeleteItem);
 
@@ -329,8 +324,7 @@ const controller = ((budgetCtrl, UICtrl) => {
 
     if (description && description.match(/\b[A-z]/g) && !isNaN(value) && value > 0) {
       if (budgetCtrl.checkItem(type, description, value)) {
-        UICtrl.sweetAlert("This budget is already exist!");
-        return;
+        return UICtrl.sweetAlert("This budget is already exist!");
       }
 
       const newItem = budgetCtrl.addItem(type, description, value);
