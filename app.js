@@ -94,7 +94,7 @@ const budgetController = (_ => {
       return data.allItems.exp.map(el => el.getPercentage);
     },
 
-    checkItem: (type, desc, val) =>
+    isBudgetPresent: (type, desc, val) =>
       data.allItems[type].some(({ description, value }) => description.includes(desc) && value === val),
   };
 })();
@@ -323,7 +323,7 @@ const controller = ((budgetCtrl, UICtrl) => {
     const { type, description, value } = UICtrl.getInputData;
 
     if (description && description.match(/\b[A-z]/g) && !isNaN(value) && value > 0) {
-      if (budgetCtrl.checkItem(type, description, value)) {
+      if (budgetCtrl.isBudgetPresent(type, description, value)) {
         return UICtrl.sweetAlert("This budget is already exist!");
       }
 
