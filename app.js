@@ -116,7 +116,7 @@ const UIController = (_ => {
     expensesPercLabel: ".item__percentage",
     dateLabel: ".budget__title--month",
 
-    message: document.querySelector(".message"),
+    domMessage: document.querySelector(".message"),
   };
 
   const formatNumber = (num, type) => {
@@ -273,14 +273,14 @@ const UIController = (_ => {
       document.querySelector(DOMStrings.addBtn).classList.toggle("red");
     },
 
-    sweetAlert(text = "") {
-      DOMStrings.message.textContent = text;
+    sweetAlert(message = "") {
+      DOMStrings.domMessage.textContent = message;
 
-      DOMStrings.message.classList.add("active");
+      DOMStrings.domMessage.classList.add("active");
 
       timeOut && clearTimeout(timeOut);
 
-      timeOut = setTimeout(() => DOMStrings.message.classList.remove("active"), 2000);
+      timeOut = setTimeout(() => DOMStrings.domMessage.classList.remove("active"), 2000);
     },
 
     get getDOMStrings() {
