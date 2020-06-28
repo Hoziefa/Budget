@@ -108,15 +108,16 @@ const UIController = (_ => {
     inputValue: ".add__value",
     incomeContainer: ".income__list",
     expenseContainer: ".expenses__list",
-    budgetLabel: ".budget__value",
-    expensesLabel: ".budget__expenses--value",
-    incomeLabel: ".budget__income--value",
-    percentageLabel: ".budget__expenses--percentage",
     container: ".container",
     expensesPercLabel: ".item__percentage",
     dateLabel: ".budget__title--month",
 
     domMessage: document.querySelector(".message"),
+
+    domBudgetLabel: document.querySelector(".budget__value"),
+    domIncomeLabel: document.querySelector(".budget__income--value"),
+    domExpensesLabel: document.querySelector(".budget__expenses--value"),
+    domPercentageLabel: document.querySelector(".budget__expenses--percentage"),
   };
 
   const formatNumber = (num, type) => {
@@ -132,6 +133,8 @@ const UIController = (_ => {
       type === "exp" ? `<i class="fas fa-minus"></i>` : `<i class="fas fa-plus"></i>`
     } ${int}.${dec}<i class="fas fa-dollar-sign"></i>`;
   };
+
+  const clearDomLabels = (...domLabels) => domLabels.forEach(domLabel => (domLabel.textContent = ""));
 
   let timeOut;
 
@@ -203,36 +206,28 @@ const UIController = (_ => {
     },
 
     displayBudget({ budget, totalInc, totalExp, percentage }) {
-      let type;
-      budget > 0 ? (type = "inc") : (type = "exp");
+      let type = budget > 0 ? "inc" : "exp";
 
-      document.querySelector(DOMStrings.budgetLabel).textContent = "";
-      document
-        .querySelector(DOMStrings.budgetLabel)
-        .insertAdjacentHTML("afterbegin", `${formatNumber(budget, type)}`);
+      clearDomLabels(DOMStrings.domBudgetLabel, DOMStrings.domIncomeLabel, DOMStrings.domExpensesLabel);
 
-      document.querySelector(DOMStrings.incomeLabel).textContent = "";
-      document
-        .querySelector(DOMStrings.incomeLabel)
-        .insertAdjacentHTML("afterbegin", `${formatNumber(totalInc, "inc")}`);
+      DOMStrings.domBudgetLabel.insertAdjacentHTML("afterbegin", `${formatNumber(budget, type)}`);
 
-      document.querySelector(DOMStrings.expensesLabel).textContent = "";
-      document
-        .querySelector(DOMStrings.expensesLabel)
-        .insertAdjacentHTML("afterbegin", formatNumber(totalExp, "exp"));
+      DOMStrings.domIncomeLabel.insertAdjacentHTML("afterbegin", `${formatNumber(totalInc, "inc")}`);
 
-      const percent = document.querySelector(DOMStrings.percentageLabel);
+      DOMStrings.domExpensesLabel.insertAdjacentHTML("afterbegin", formatNumber(totalExp, "exp"));
 
       percentage > 0 && percentage < 10000
-        ? (percent.textContent = `${percentage}%`)
-        : (percent.textContent = `---`);
+        ? (DOMStrings.domPercentageLabel.textContent = `${percentage}%`)
+        : (DOMStrings.domPercentageLabel.textContent = `---`);
     },
 
     displayPercentages(percentages) {
       const fields = document.querySelectorAll(DOMStrings.expensesPercLabel);
 
-      fields.forEach((el, i) => {
-        percentages[i] > 0 ? (el.textContent = `${percentages[i]}%`) : (el.textContent = "---");
+      fields.forEach((field, fieldIdx) => {
+        percentages[fieldIdx] > 0
+          ? (field.textContent = `${percentages[fieldIdx]}%`)
+          : (field.textContent = "---");
       });
     },
 
@@ -263,12 +258,10 @@ const UIController = (_ => {
 
     changedType() {
       const fields = document.querySelectorAll(
-        `${DOMStrings.inputType}, ${DOMStrings.inputDescription}, ${DOMStrings.inputValue}`
+        `${DOMStrings.inputType}, ${DOMStrings.inputDescription}, ${DOMStrings.inputValue}`,
       );
 
-      fields.forEach(el => {
-        el.classList.toggle("red-focus");
-      });
+      fields.forEach(field => field.classList.toggle("red-focus"));
 
       document.querySelector(DOMStrings.addBtn).classList.toggle("red");
     },
@@ -280,7 +273,7 @@ const UIController = (_ => {
 
       timeOut && clearTimeout(timeOut);
 
-      timeOut = setTimeout(() => DOMStrings.domMessage.classList.remove("active"), 2000);
+      timeOut = setTimeout(() => DOMStrings.domMessage.classList.remove("active"), 1500);
     },
 
     get getDOMStrings() {
@@ -296,7 +289,7 @@ const controller = ((budgetCtrl, UICtrl) => {
 
     document.querySelector(DOM.addBtn).addEventListener("click", ctrlAddItem);
 
-    document.addEventListener("keypress", e => e.code === "Enter" && ctrlAddItem());
+    document.addEventListener("keypress", ({ code }) => code === "Enter" && ctrlAddItem());
 
     document.querySelector(DOM.container).addEventListener("click", ctrlDeleteItem);
 
