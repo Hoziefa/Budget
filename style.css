@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Cutive&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
 /**********************************************
 *** GENERAL
@@ -258,6 +259,19 @@ body::-webkit-scrollbar-thumb {
 .add__value:focus {
   outline: none;
   border-color: var(--primary-color);
+}
+
+.add__description::-webkit-input-placeholder,
+.add__value::-webkit-input-placeholder {
+  font-weight: 600;
+  text-transform: capitalize;
+  font-family: 'poppins';
+  transition: opacity 0.3s;
+}
+
+.add__description:focus::-webkit-input-placeholder,
+.add__value:focus::-webkit-input-placeholder {
+  opacity: 0;
 }
 
 /***** LISTS *****/
