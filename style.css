@@ -263,7 +263,7 @@ body::-webkit-scrollbar-thumb {
 
 .add__description::-webkit-input-placeholder,
 .add__value::-webkit-input-placeholder {
-  font-weight: 600;
+  font-weight: 500;
   text-transform: capitalize;
   font-family: 'poppins';
   transition: opacity 0.3s;
