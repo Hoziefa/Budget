@@ -317,7 +317,7 @@ const controller = ((budgetCtrl, UICtrl) => {
 
     if (description && description.match(/\b[A-z]/g) && !isNaN(value) && value > 0) {
       if (budgetCtrl.isBudgetPresent(type, description, value)) {
-        return UICtrl.sweetAlert("This budget is already exist!");
+        return UICtrl.sweetAlert(`This ${type === "inc" ? "Income" : "Expense"} is already exist!`);
       }
 
       const newItem = budgetCtrl.addItem(type, description, value);
