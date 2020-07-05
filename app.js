@@ -62,7 +62,7 @@ const budgetController = (_ => {
         },
 
         deleteItem(type, id) {
-            data.allItems[type] = data.allItems[type].filter(el => el.id !== id);
+            data.allItems[type] = data.allItems[type].filter(({ id: itemID }) => itemID !== id);
         },
 
         calculateBudget() {
