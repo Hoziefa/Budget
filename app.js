@@ -1,159 +1,158 @@
 //SECTION BUDGET CONTROLLER
 const budgetController = (_ => {
-  class Expenses {
-    constructor(id, description, value) {
-      this.id = id;
-      this.description = description;
-      this.value = value;
+    class Expenses {
+        constructor(id, description, value) {
+            this.id = id;
+            this.description = description;
+            this.value = value;
+        }
+
+        percentage = -1;
+
+        calcPercentage(totalIncome) {
+            totalIncome > 0
+                ? (this.percentage = Math.round((this.value / totalIncome) * 100))
+                : (this.percentage = -1);
+        }
+
+        get getPercentage() {
+            return this.percentage;
+        }
     }
 
-    percentage = -1;
-
-    calcPercentage(totalIncome) {
-      totalIncome > 0
-        ? (this.percentage = Math.round((this.value / totalIncome) * 100))
-        : (this.percentage = -1);
+    class Income {
+        constructor(id, description, value) {
+            this.id = id;
+            this.description = description;
+            this.value = value;
+        }
     }
 
-    get getPercentage() {
-      return this.percentage;
-    }
-  }
+    const data = {
+        allItems: {
+            exp: [],
+            inc: [],
+        },
 
-  class Income {
-    constructor(id, description, value) {
-      this.id = id;
-      this.description = description;
-      this.value = value;
-    }
-  }
+        totals: {
+            exp: 0,
+            inc: 0,
+        },
 
-  const data = {
-    allItems: {
-      exp: [],
-      inc: [],
-    },
+        budget: 0,
 
-    totals: {
-      exp: 0,
-      inc: 0,
-    },
+        percentage: -1,
+    };
 
-    budget: 0,
+    const calculateTotal = type => {
+        data.totals[type] = data.allItems[type].reduce((acc, { value }) => acc + value, 0);
+    };
 
-    percentage: -1,
-  };
+    return {
+        addItem(type, des, val) {
+            let ID = data.allItems[type][data.allItems[type].length - 1]?.id + 1 || 0;
 
-  const calculateTotal = type => {
-    let sum = data.allItems[type].reduce((acc, cur) => acc + cur.value, 0);
+            let newItem;
+            if (type === "exp") newItem = new Expenses(ID, des, val);
+            else if (type === "inc") newItem = new Income(ID, des, val);
 
-    data.totals[type] = sum;
-  };
+            data.allItems[type].push(newItem);
 
-  return {
-    addItem(type, des, val) {
-      let ID = data.allItems[type][data.allItems[type].length - 1]?.id + 1 || 0;
+            return newItem;
+        },
 
-      let newItem;
-      if (type === "exp") newItem = new Expenses(ID, des, val);
-      else if (type === "inc") newItem = new Income(ID, des, val);
+        deleteItem(type, id) {
+            data.allItems[type] = data.allItems[type].filter(el => el.id !== id);
+        },
 
-      data.allItems[type].push(newItem);
+        calculateBudget() {
+            calculateTotal("exp");
+            calculateTotal("inc");
 
-      return newItem;
-    },
+            data.budget = data.totals.inc - data.totals.exp;
 
-    deleteItem(type, id) {
-      data.allItems[type] = data.allItems[type].filter(el => el.id !== id);
-    },
+            data.totals.inc > 0
+                ? (data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100))
+                : (data.percentage = -1);
+        },
 
-    calculateBudget() {
-      calculateTotal("exp");
-      calculateTotal("inc");
+        get getBudget() {
+            return {
+                budget: data.budget,
+                totalInc: data.totals.inc,
+                totalExp: data.totals.exp,
+                percentage: data.percentage,
+            };
+        },
 
-      data.budget = data.totals.inc - data.totals.exp;
+        calculatePercentages() {
+            data.allItems.exp.forEach(el => el.calcPercentage(data.totals.inc));
+        },
 
-      if (data.totals.inc > 0) data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
-      else data.percentage = -1;
-    },
+        get getPercentages() {
+            return data.allItems.exp.map(el => el.getPercentage);
+        },
 
-    get getBudget() {
-      return {
-        budget: data.budget,
-        totalInc: data.totals.inc,
-        totalExp: data.totals.exp,
-        percentage: data.percentage,
-      };
-    },
-
-    calculatePercentages() {
-      data.allItems.exp.forEach(el => el.calcPercentage(data.totals.inc));
-    },
-
-    get getPercentages() {
-      return data.allItems.exp.map(el => el.getPercentage);
-    },
-
-    isBudgetPresent: (type, desc, val) =>
-      data.allItems[type].some(({ description, value }) => description.includes(desc) && value === val),
-  };
+        isBudgetPresent: (type, desc, val) =>
+            data.allItems[type].some(({ description, value }) => description.includes(desc) && value === val),
+    };
 })();
 
 //SECTION UI CONTROLLER
 const UIController = (_ => {
-  const DOMStrings = {
-    addBtn: ".add__btn",
-    inputType: ".add__type",
-    inputDescription: ".add__description",
-    inputValue: ".add__value",
-    incomeContainer: ".income__list",
-    expenseContainer: ".expenses__list",
-    container: ".container",
-    expensesPercLabel: ".item__percentage",
-    dateLabel: ".budget__title--month",
+    const DOMStrings = {
+        addBtn: ".add__btn",
+        inputType: ".add__type",
+        inputDescription: ".add__description",
+        inputValue: ".add__value",
+        incomeContainer: ".income__list",
+        expenseContainer: ".expenses__list",
+        container: ".container",
+        expensesPercLabel: ".item__percentage",
+        dateLabel: ".budget__title--month",
 
-    domMessage: document.querySelector(".message"),
+        domMessage: document.querySelector(".message"),
 
-    domBudgetLabel: document.querySelector(".budget__value"),
-    domIncomeLabel: document.querySelector(".budget__income--value"),
-    domExpensesLabel: document.querySelector(".budget__expenses--value"),
-    domPercentageLabel: document.querySelector(".budget__expenses--percentage"),
-  };
+        domBudgetLabel: document.querySelector(".budget__value"),
+        domIncomeLabel: document.querySelector(".budget__income--value"),
+        domExpensesLabel: document.querySelector(".budget__expenses--value"),
+        domPercentageLabel: document.querySelector(".budget__expenses--percentage"),
+    };
 
-  const formatNumber = (num, type) => {
-    num = Math.abs(num);
+    const formatNumber = (num, type) => {
+        num = Math.abs(num);
 
-    num = num.toFixed(2);
+        num = num.toFixed(2);
 
-    let [int, dec] = num.split(".");
+        let [int, dec] = num.split(".");
 
-    if (int.length > 3) int = `${int.substring(0, int.length - 3)},${int.substring(int.length - 3)}`;
+        if (int.length > 3) int = `${int.substring(0, int.length - 3)},${int.substring(int.length - 3)}`;
 
-    return `${
-      type === "exp" ? `<i class="fas fa-minus"></i>` : `<i class="fas fa-plus"></i>`
-    } ${int}.${dec}<i class="fas fa-dollar-sign"></i>`;
-  };
+        return `${
+            type === "exp" ? `<i class="fas fa-minus"></i>` : `<i class="fas fa-plus"></i>`
+        } ${int}.${dec}<i class="fas fa-dollar-sign"></i>`;
+    };
 
-  const clearDomLabels = (...domLabels) => domLabels.forEach(domLabel => (domLabel.textContent = ""));
+    const clearDomLabels = (...domLabels) => domLabels.forEach(domLabel => (domLabel.textContent = ""));
 
-  let timeOut;
+    let timeOut;
 
-  return {
-    get getInputData() {
-      return {
-        type: document.querySelector(DOMStrings.inputType).value,
-        description: document.querySelector(DOMStrings.inputDescription).value,
-        value: parseFloat(document.querySelector(DOMStrings.inputValue).value),
-      };
-    },
+    return {
+        get getInputData() {
+            return {
+                type: document.querySelector(DOMStrings.inputType).value,
+                description: document.querySelector(DOMStrings.inputDescription).value,
+                value: parseFloat(document.querySelector(DOMStrings.inputValue).value),
+            };
+        },
 
-    addListItem({ id, description, value }, type) {
-      let markup, element;
+        addListItem({ id, description, value }, type) {
+            let markup, element;
 
-      if (type === "inc") {
-        element = DOMStrings.incomeContainer;
+            if (type === "inc") {
+                element = DOMStrings.incomeContainer;
 
-        markup = `
+                markup = `
           <div class="item" id="inc-%id%">
           <div class="item__description">%description%</div>
           <div>
@@ -166,10 +165,10 @@ const UIController = (_ => {
           </div>
           </div>
         `;
-      } else if (type === "exp") {
-        element = DOMStrings.expenseContainer;
+            } else if (type === "exp") {
+                element = DOMStrings.expenseContainer;
 
-        markup = `
+                markup = `
           <div class="item" id="exp-%id%">
           <div class="item__description">%description%</div>
           <div>
@@ -183,184 +182,184 @@ const UIController = (_ => {
           </div>
           </div>
         `;
-      }
+            }
 
-      let newMarkup;
-      newMarkup = markup.replace("%id%", id);
-      newMarkup = newMarkup.replace("%description%", description);
-      newMarkup = newMarkup.replace("%value%", formatNumber(value, type));
+            let newMarkup;
+            newMarkup = markup.replace("%id%", id);
+            newMarkup = newMarkup.replace("%description%", description);
+            newMarkup = newMarkup.replace("%value%", formatNumber(value, type));
 
-      document.querySelector(element).insertAdjacentHTML("beforeend", newMarkup);
-    },
+            document.querySelector(element).insertAdjacentHTML("beforeend", newMarkup);
+        },
 
-    deleteItem(selectorID) {
-      document.getElementById(selectorID)?.remove();
-    },
+        deleteItem(selectorID) {
+            document.getElementById(selectorID)?.remove();
+        },
 
-    clearFields() {
-      const fields = document.querySelectorAll(`${DOMStrings.inputDescription}, ${DOMStrings.inputValue}`);
+        clearFields() {
+            const fields = document.querySelectorAll(`${DOMStrings.inputDescription}, ${DOMStrings.inputValue}`);
 
-      fields.forEach(el => (el.value = ""));
+            fields.forEach(el => (el.value = ""));
 
-      fields[0].focus();
-    },
+            fields[0].focus();
+        },
 
-    displayBudget({ budget, totalInc, totalExp, percentage }) {
-      let type = budget > 0 ? "inc" : "exp";
+        displayBudget({ budget, totalInc, totalExp, percentage }) {
+            let type = budget > 0 ? "inc" : "exp";
 
-      clearDomLabels(DOMStrings.domBudgetLabel, DOMStrings.domIncomeLabel, DOMStrings.domExpensesLabel);
+            clearDomLabels(DOMStrings.domBudgetLabel, DOMStrings.domIncomeLabel, DOMStrings.domExpensesLabel);
 
-      DOMStrings.domBudgetLabel.insertAdjacentHTML("afterbegin", `${formatNumber(budget, type)}`);
+            DOMStrings.domBudgetLabel.insertAdjacentHTML("afterbegin", `${formatNumber(budget, type)}`);
 
-      DOMStrings.domIncomeLabel.insertAdjacentHTML("afterbegin", `${formatNumber(totalInc, "inc")}`);
+            DOMStrings.domIncomeLabel.insertAdjacentHTML("afterbegin", `${formatNumber(totalInc, "inc")}`);
 
-      DOMStrings.domExpensesLabel.insertAdjacentHTML("afterbegin", formatNumber(totalExp, "exp"));
+            DOMStrings.domExpensesLabel.insertAdjacentHTML("afterbegin", formatNumber(totalExp, "exp"));
 
-      percentage > 0 && percentage < 10000
-        ? (DOMStrings.domPercentageLabel.textContent = `${percentage}%`)
-        : (DOMStrings.domPercentageLabel.textContent = `---`);
-    },
+            percentage > 0 && percentage < 10000
+                ? (DOMStrings.domPercentageLabel.textContent = `${percentage}%`)
+                : (DOMStrings.domPercentageLabel.textContent = `---`);
+        },
 
-    displayPercentages(percentages) {
-      const fields = document.querySelectorAll(DOMStrings.expensesPercLabel);
+        displayPercentages(percentages) {
+            const fields = document.querySelectorAll(DOMStrings.expensesPercLabel);
 
-      fields.forEach((field, fieldIdx) => {
-        percentages[fieldIdx] > 0
-          ? (field.textContent = `${percentages[fieldIdx]}%`)
-          : (field.textContent = "---");
-      });
-    },
+            fields.forEach((field, fieldIdx) => {
+                percentages[fieldIdx] > 0
+                    ? (field.textContent = `${percentages[fieldIdx]}%`)
+                    : (field.textContent = "---");
+            });
+        },
 
-    displayDate() {
-      const now = new Date();
+        displayDate() {
+            const now = new Date();
 
-      const year = now.getFullYear();
+            const year = now.getFullYear();
 
-      const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
+            const months = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+            ];
 
-      const month = now.getMonth();
+            const month = now.getMonth();
 
-      document.querySelector(DOMStrings.dateLabel).textContent = `${months[month]} ${year}`;
-    },
+            document.querySelector(DOMStrings.dateLabel).textContent = `${months[month]} ${year}`;
+        },
 
-    changedType() {
-      const fields = document.querySelectorAll(
-        `${DOMStrings.inputType}, ${DOMStrings.inputDescription}, ${DOMStrings.inputValue}`,
-      );
+        changedType() {
+            const fields = document.querySelectorAll(
+                `${DOMStrings.inputType}, ${DOMStrings.inputDescription}, ${DOMStrings.inputValue}`,
+            );
 
-      fields.forEach(field => field.classList.toggle("red-focus"));
+            fields.forEach(field => field.classList.toggle("red-focus"));
 
-      document.querySelector(DOMStrings.addBtn).classList.toggle("red");
-    },
+            document.querySelector(DOMStrings.addBtn).classList.toggle("red");
+        },
 
-    sweetAlert(message = "") {
-      DOMStrings.domMessage.textContent = message;
+        sweetAlert(message = "") {
+            DOMStrings.domMessage.textContent = message;
 
-      DOMStrings.domMessage.classList.add("active");
+            DOMStrings.domMessage.classList.add("active");
 
-      timeOut && clearTimeout(timeOut);
+            timeOut && clearTimeout(timeOut);
 
-      timeOut = setTimeout(() => DOMStrings.domMessage.classList.remove("active"), 1500);
-    },
+            timeOut = setTimeout(() => DOMStrings.domMessage.classList.remove("active"), 1500);
+        },
 
-    get getDOMStrings() {
-      return DOMStrings;
-    },
-  };
+        get getDOMStrings() {
+            return DOMStrings;
+        },
+    };
 })();
 
 //SECTION GLOBAL APP CONTROLLER
 const controller = ((budgetCtrl, UICtrl) => {
-  const setupEventListeners = () => {
-    const DOM = UICtrl.getDOMStrings;
+    const setupEventListeners = () => {
+        const DOM = UICtrl.getDOMStrings;
 
-    document.querySelector(DOM.addBtn).addEventListener("click", ctrlAddItem);
+        document.querySelector(DOM.addBtn).addEventListener("click", ctrlAddItem);
 
-    document.addEventListener("keypress", ({ code }) => code === "Enter" && ctrlAddItem());
+        document.addEventListener("keypress", ({ code }) => code === "Enter" && ctrlAddItem());
 
-    document.querySelector(DOM.container).addEventListener("click", ctrlDeleteItem);
+        document.querySelector(DOM.container).addEventListener("click", ctrlDeleteItem);
 
-    document.querySelector(DOM.inputType).addEventListener("change", UICtrl.changedType);
-  };
+        document.querySelector(DOM.inputType).addEventListener("change", UICtrl.changedType);
+    };
 
-  const updateBudget = () => {
-    budgetCtrl.calculateBudget();
+    const updateBudget = () => {
+        budgetCtrl.calculateBudget();
 
-    const budget = budgetCtrl.getBudget;
+        const budget = budgetCtrl.getBudget;
 
-    UICtrl.displayBudget(budget);
-  };
+        UICtrl.displayBudget(budget);
+    };
 
-  const updatePercentages = () => {
-    budgetCtrl.calculatePercentages();
+    const updatePercentages = () => {
+        budgetCtrl.calculatePercentages();
 
-    const percentages = budgetCtrl.getPercentages;
+        const percentages = budgetCtrl.getPercentages;
 
-    UICtrl.displayPercentages(percentages);
-  };
+        UICtrl.displayPercentages(percentages);
+    };
 
-  const ctrlAddItem = () => {
-    const { type, description, value } = UICtrl.getInputData;
+    const ctrlAddItem = () => {
+        const { type, description, value } = UICtrl.getInputData;
 
-    if (description && description.match(/\b[A-z]/g) && !isNaN(value) && value > 0) {
-      if (budgetCtrl.isBudgetPresent(type, description, value)) {
-        return UICtrl.sweetAlert(`This ${type === "inc" ? "Income" : "Expense"} is already exist!`);
-      }
+        if (description && description.match(/\b[A-z]/g) && !isNaN(value) && value > 0) {
+            if (budgetCtrl.isBudgetPresent(type, description, value)) {
+                return UICtrl.sweetAlert(`This ${type === "inc" ? "Income" : "Expense"} is already exist!`);
+            }
 
-      const newItem = budgetCtrl.addItem(type, description, value);
+            const newItem = budgetCtrl.addItem(type, description, value);
 
-      UICtrl.addListItem(newItem, type);
+            UICtrl.addListItem(newItem, type);
 
-      UICtrl.clearFields();
+            UICtrl.clearFields();
 
-      updateBudget();
+            updateBudget();
 
-      updatePercentages();
-    }
-  };
+            updatePercentages();
+        }
+    };
 
-  const ctrlDeleteItem = ({ target }) => {
-    const itemID = target.closest(".item")?.id;
+    const ctrlDeleteItem = ({ target }) => {
+        const itemID = target.closest(".item")?.id;
 
-    if (!itemID) return;
+        if (!itemID) return;
 
-    let [type, id] = itemID.split("-");
+        let [type, id] = itemID.split("-");
 
-    id = parseInt(id);
+        id = parseInt(id);
 
-    if (target.matches(".item__delete--btn, .item__delete--btn *")) {
-      budgetCtrl.deleteItem(type, id);
+        if (target.matches(".item__delete--btn, .item__delete--btn *")) {
+            budgetCtrl.deleteItem(type, id);
 
-      UICtrl.deleteItem(itemID);
-    }
+            UICtrl.deleteItem(itemID);
+        }
 
-    updateBudget();
+        updateBudget();
 
-    updatePercentages();
-  };
+        updatePercentages();
+    };
 
-  return {
-    init() {
-      UICtrl.displayBudget({ budget: 0, totalInc: 0, totalExp: 0, percentage: -1 });
+    return {
+        init() {
+            UICtrl.displayBudget({ budget: 0, totalInc: 0, totalExp: 0, percentage: -1 });
 
-      setupEventListeners();
+            setupEventListeners();
 
-      UICtrl.displayDate();
-    },
-  };
+            UICtrl.displayDate();
+        },
+    };
 })(budgetController, UIController);
 
 controller.init();
