@@ -224,7 +224,7 @@ const UIController = (_ => {
             const fields = document.querySelectorAll(DOMStrings.expensesPercLabel);
 
             fields.forEach((field, fieldIdx) => {
-                percentages[fieldIdx] > 0
+                percentages[fieldIdx] > 0 && percentages[fieldIdx] < 10000
                     ? (field.textContent = `${percentages[fieldIdx]}%`)
                     : (field.textContent = "---");
             });
