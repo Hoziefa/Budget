@@ -113,10 +113,21 @@ const UIController = (_ => {
 
         domMessage: document.querySelector(".message"),
 
-        domBudgetLabel: document.querySelector(".budget__value"),
-        domIncomeLabel: document.querySelector(".budget__income--value"),
-        domExpensesLabel: document.querySelector(".budget__expenses--value"),
-        domPercentageLabel: document.querySelector(".budget__expenses--percentage"),
+        get domBudgetLabel() {
+            return document.querySelector(".budget__value");
+        },
+
+        get domIncomeLabel() {
+            return document.querySelector(".budget__income--value");
+        },
+
+        get domExpensesLabel() {
+            return document.querySelector(".budget__expenses--value");
+        },
+
+        get domPercentageLabel() {
+            return document.querySelector(".budget__expenses--percentage");
+        },
     };
 
     const formatNumber = (num, type) => {
@@ -141,7 +152,7 @@ const UIController = (_ => {
         get getInputData() {
             return {
                 type: document.querySelector(DOMStrings.inputType).value,
-                description: document.querySelector(DOMStrings.inputDescription).value,
+                description: document.querySelector(DOMStrings.inputDescription).value.trim(),
                 value: parseFloat(document.querySelector(DOMStrings.inputValue).value),
             };
         },
@@ -153,35 +164,35 @@ const UIController = (_ => {
                 element = DOMStrings.incomeContainer;
 
                 markup = `
-          <div class="item" id="inc-%id%">
-          <div class="item__description">%description%</div>
-          <div>
-            <div class="item__value">%value%</div>
-            <div class="item__delete">
-            <button class="item__delete--btn">
-              <i class="far fa-times-circle"></i>
-            </button>
-            </div>
-          </div>
-          </div>
-        `;
+                    <div class="item" id="inc-%id%">
+                        <div class="item__description">%description%</div>
+                        <div>
+                            <div class="item__value">%value%</div>
+                            <div class="item__delete">
+                            <button class="item__delete--btn">
+                            <i class="far fa-times-circle"></i>
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
             } else if (type === "exp") {
                 element = DOMStrings.expenseContainer;
 
                 markup = `
-          <div class="item" id="exp-%id%">
-          <div class="item__description">%description%</div>
-          <div>
-            <div class="item__value">%value%</div>
-            <div class="item__percentage">%%</div>
-            <div class="item__delete">
-            <button class="item__delete--btn">
-              <i class="far fa-times-circle"></i>
-            </button>
-            </div>
-          </div>
-          </div>
-        `;
+                    <div class="item" id="exp-%id%">
+                        <div class="item__description">%description%</div>
+                        <div>
+                            <div class="item__value">%value%</div>
+                            <div class="item__percentage">%%</div>
+                            <div class="item__delete">
+                            <button class="item__delete--btn">
+                            <i class="far fa-times-circle"></i>
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
 
             let newMarkup;
@@ -283,19 +294,19 @@ const UIController = (_ => {
 
 //SECTION GLOBAL APP CONTROLLER
 const controller = ((budgetCtrl, UICtrl) => {
-    const setupEventListeners = () => {
-        const DOM = UICtrl.getDOMStrings;
+    const setupEventListeners = _ => {
+        const { addBtn, container, inputType } = UICtrl.getDOMStrings;
 
-        document.querySelector(DOM.addBtn).addEventListener("click", ctrlAddItem);
+        document.querySelector(addBtn).addEventListener("click", ctrlAddItem);
 
         document.addEventListener("keypress", ({ code }) => code === "Enter" && ctrlAddItem());
 
-        document.querySelector(DOM.container).addEventListener("click", ctrlDeleteItem);
+        document.querySelector(container).addEventListener("click", ctrlDeleteItem);
 
-        document.querySelector(DOM.inputType).addEventListener("change", UICtrl.changedType);
+        document.querySelector(inputType).addEventListener("change", UICtrl.changedType);
     };
 
-    const updateBudget = () => {
+    const updateBudget = _ => {
         budgetCtrl.calculateBudget();
 
         const budget = budgetCtrl.getBudget;
@@ -303,7 +314,7 @@ const controller = ((budgetCtrl, UICtrl) => {
         UICtrl.displayBudget(budget);
     };
 
-    const updatePercentages = () => {
+    const updatePercentages = _ => {
         budgetCtrl.calculatePercentages();
 
         const percentages = budgetCtrl.getPercentages;
@@ -311,27 +322,29 @@ const controller = ((budgetCtrl, UICtrl) => {
         UICtrl.displayPercentages(percentages);
     };
 
-    const ctrlAddItem = () => {
+    const ctrlAddItem = _ => {
         const { type, description, value } = UICtrl.getInputData;
 
-        if (description && description.match(/\b[A-z]/g) && !isNaN(value) && value > 0) {
-            if (budgetCtrl.isBudgetPresent(type, description, value)) {
-                return UICtrl.sweetAlert(`This ${type === "inc" ? "Income" : "Expense"} is already exist!`);
-            }
+        if (!description || !description.match(/\b[A-z]/g) || isNaN(value) || value <= 0) return;
 
-            const newItem = budgetCtrl.addItem(type, description, value);
-
-            UICtrl.addListItem(newItem, type);
-
-            UICtrl.clearFields();
-
-            updateBudget();
-
-            updatePercentages();
+        if (budgetCtrl.isBudgetPresent(type, description, value)) {
+            return UICtrl.sweetAlert(`This ${type === "inc" ? "Income" : "Expense"} is already exist!`);
         }
+
+        const newItem = budgetCtrl.addItem(type, description, value);
+
+        UICtrl.addListItem(newItem, type);
+
+        UICtrl.clearFields();
+
+        updateBudget();
+
+        updatePercentages();
     };
 
     const ctrlDeleteItem = ({ target }) => {
+        if (!target.matches(".item__delete--btn, .item__delete--btn *")) return;
+
         const itemID = target.closest(".item")?.id;
 
         if (!itemID) return;
@@ -340,11 +353,9 @@ const controller = ((budgetCtrl, UICtrl) => {
 
         id = parseInt(id);
 
-        if (target.matches(".item__delete--btn, .item__delete--btn *")) {
-            budgetCtrl.deleteItem(type, id);
+        budgetCtrl.deleteItem(type, id);
 
-            UICtrl.deleteItem(itemID);
-        }
+        UICtrl.deleteItem(itemID);
 
         updateBudget();
 
