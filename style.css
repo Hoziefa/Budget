@@ -1,71 +1,70 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Cutive&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cutive&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 /**********************************************
 *** GENERAL
 **********************************************/
 
 :root {
-  font-size: 16px;
-  --primary-color: #28b9b5;
-  --secondary-color: #ff5049;
+    font-size: 16px;
+    --primary-color: #28b9b5;
+    --secondary-color: #ff5049;
 }
 
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :focus {
-  outline: none !important;
+    outline: none !important;
 }
 
 .clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 body {
-  color: #333;
-  font-family: "Roboto 600", sans-serif;
-  font-weight: 400;
-  position: relative;
-  background-image: repeating-linear-gradient(60deg, #f5f5f5, #fff 15%);
+    color: #333;
+    font-family: "Roboto 600", sans-serif;
+    font-weight: 400;
+    position: relative;
+    background-image: repeating-linear-gradient(60deg, #f5f5f5, #fff 15%);
 
-  font-size: 1rem;
-  max-width: 100vw;
-  min-height: 100vh;
-  overflow: hidden auto;
-  -webkit-user-select: none;
-  zoom: 1;
+    font-size: 1rem;
+    max-width: 100vw;
+    min-height: 100vh;
+    overflow: hidden auto;
+    -webkit-user-select: none;
+    zoom: 1;
 }
 
-
 body::-webkit-scrollbar {
-  width: 0.55rem;
+    width: 0.55rem;
 }
 
 body::-webkit-scrollbar-track {
-  background: #1e1e24;
+    background: #1e1e24;
 }
 
 body::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
+    background: var(--primary-color);
 }
 
 .right {
-  float: right;
+    float: right;
 }
 .red {
-  color: var(--secondary-color) !important;
+    color: var(--secondary-color) !important;
 }
 .red-focus:focus {
-  border-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
 }
 
 /**********************************************
@@ -73,113 +72,115 @@ body::-webkit-scrollbar-thumb {
 **********************************************/
 
 .top {
-  min-height: 50vh;
-  background-image: linear-gradient(hsla(0, 0%, 0%, 0.65), hsla(0, 0%, 0%, 0.35)),
-    url("./images/savings-2789112_1920.jpg");
-  background-size: cover;
-  background-position: center;
-  position: relative;
+    min-height: 50vh;
+    background-image: linear-gradient(hsla(0, 0%, 0%, 0.65), hsla(0, 0%, 0%, 0.35)),
+        url("./images/savings-2789112_1920.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
 }
 
 .budget {
-  color: #fff;
-  min-height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    color: #fff;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem 0;
 }
 
 .budget__title {
-  font-size: 2.65rem;
-  text-align: center;
-  margin-bottom: 10px;
-  font-weight: 300;
+    font-size: 2.65rem;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 300;
 }
 
 .budget__value {
-  font-weight: 300;
-  font-size: 2.55rem;
-  text-align: center;
-  margin-bottom: 1.55rem;
-  letter-spacing: 2px;
+    font-weight: 300;
+    font-size: 2.55rem;
+    text-align: center;
+    margin-bottom: 1.55rem;
+    letter-spacing: 2px;
 }
 
 .budget__value i {
-  font-size: 1rem;
-  vertical-align: middle;
+    font-size: 1.25rem;
+    vertical-align: middle;
+    margin-right: -5px;
 }
 
 .budget__value i:nth-of-type(2) {
-  font-size: smaller;
-  vertical-align: baseline;
+    font-size: smaller;
+    vertical-align: baseline;
 }
 
 .budget__income,
 .budget__expenses {
-  padding: 0.9rem;
-  text-transform: uppercase;
-  font-size: 1.22rem;
-  letter-spacing: 2px;
-  width: 50%;
+    padding: 0.9rem;
+    text-transform: uppercase;
+    font-size: 1.22rem;
+    letter-spacing: 2px;
+    width: 50%;
 }
 
 .budget__income {
-  margin-bottom: 10px;
-  background-color: var(--primary-color);
+    margin-bottom: 10px;
+    background-color: var(--primary-color);
 }
 
 .budget__expenses {
-  background-color: var(--secondary-color);
+    background-color: var(--secondary-color);
 }
 
 .budget__income--text,
 .budget__expenses--text {
-  float: left;
-  font-size: 1.35rem;
-  color: #ffffff;
-  margin-top: 2px;
-  font-weight: 700;
-  font-family: "Agency FB", sans-serif;
+    float: left;
+    font-size: 1.35rem;
+    color: #ffffff;
+    margin-top: 2px;
+    font-weight: 700;
+    font-family: "Agency FB", sans-serif;
 }
 
 .budget__income--value,
 .budget__expenses--value {
-  letter-spacing: 1px;
-  float: left;
-  font-size: 1.3rem;
-  font-weight: 600;
+    letter-spacing: 1px;
+    float: left;
+    font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .budget__income--value i,
 .budget__expenses--value i {
-  font-size: 0.85rem;
-  vertical-align: middle;
+    font-size: 0.85rem;
+    vertical-align: middle;
 }
 
 .budget__income--value i:first-child {
-  vertical-align: 2px;
+    vertical-align: 1px;
 }
 
 .budget__income--value i:nth-of-type(2),
 .budget__expenses--value i:nth-of-type(2) {
-  font-size: small;
-  vertical-align: baseline;
+    font-size: small;
+    vertical-align: baseline;
 }
 
 .budget__income--percentage,
 .budget__expenses--percentage {
-  float: left;
-  width: 48px;
-  font-size: 0.8rem;
-  padding: 3px 0;
-  margin-left: 10px;
+    float: left;
+    width: 48px;
+    font-size: 0.8rem;
+    padding: 3px 0;
+    margin-left: 10px;
 }
 
 .budget__expenses--percentage {
-  background-color: rgba(255, 255, 255, 0.2);
-  text-align: center;
-  border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    border-radius: 3px;
 }
 
 /**********************************************
@@ -188,411 +189,413 @@ body::-webkit-scrollbar-thumb {
 
 /***** FORM *****/
 .add {
-  padding: 1rem;
-  border-bottom: 3px solid #e7e7e7;
-  background-color: #eee;
-  background-image: linear-gradient(315deg, #fdfbfb, #ebedee);
+    padding: 1rem;
+    border-bottom: 3px solid #e7e7e7;
+    background-color: #eee;
+    background-image: linear-gradient(315deg, #fdfbfb, #ebedee);
 }
 
 .add__container {
-  margin: 0 auto;
-  text-align: center;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .add__type {
-  width: 55px;
-  border: 1px solid #e7e7e7;
-  height: 44px;
-  font-size: 1.22rem;
-  color: inherit;
-  background-color: #fff;
-  margin-right: 10px;
-  font-weight: 300;
-  transition: border 0.3s;
+    width: 55px;
+    border: 1px solid #e7e7e7;
+    height: 44px;
+    font-size: 1.22rem;
+    color: inherit;
+    background-color: #fff;
+    margin-right: 10px;
+    font-weight: 300;
+    transition: border 0.3s;
 }
 
 .add__description,
 .add__value {
-  border: 1px solid #e7e7e7;
-  background-color: #fff;
-  color: inherit;
-  font-family: inherit;
-  font-size: 1.22rem;
-  padding: 12px 15px;
-  margin-right: 10px;
-  border-radius: 5px;
-  transition: border 0.3s;
+    border: 1px solid #e7e7e7;
+    background-color: #fff;
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.22rem;
+    padding: 12px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: border 0.3s;
 }
 
 .add__description {
-  width: 40%;
+    width: 40%;
 }
 
 .add__value {
-  width: 110px;
+    width: 110px;
 }
 
 .add__btn {
-  font-size: 2.7rem;
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  cursor: pointer;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1.1;
+    font-size: 2.7rem;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.1;
 }
 
 .add__btn:active {
-  transform: translateY(2px);
+    transform: translateY(2px);
 }
 
 .add__type,
 .add__description,
 .add__value {
-  border: 2px solid transparent;
-  font-family: monospace, sans-serif;
+    border: 2px solid transparent;
+    font-family: monospace, sans-serif;
 }
 
 .add__type:focus,
 .add__description:focus,
 .add__value:focus {
-  outline: none;
-  border-color: var(--primary-color);
+    outline: none;
+    border-color: var(--primary-color);
 }
 
 .add__description::-webkit-input-placeholder,
 .add__value::-webkit-input-placeholder {
-  font-weight: 500;
-  text-transform: capitalize;
-  font-family: 'poppins';
-  transition: opacity 0.3s;
+    font-weight: 500;
+    text-transform: capitalize;
+    font-family: "poppins";
+    transition: opacity 0.3s;
 }
 
 .add__description:focus::-webkit-input-placeholder,
 .add__value:focus::-webkit-input-placeholder {
-  opacity: 0;
+    opacity: 0;
 }
 
 /***** LISTS *****/
 .container {
-  width: 85%;
-  display: flex;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin: 60px auto;
-  position: relative;
+    width: 85%;
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 60px auto;
+    position: relative;
 }
 
 .income {
-  flex: 1;
-  margin-right: 50px;
+    flex: 1;
+    margin-right: 50px;
 }
 
 .expenses {
-  flex: 1;
+    flex: 1;
 }
 
 h2 {
-  text-transform: uppercase;
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 .income .income__title,
 .expenses .expenses__title {
-  text-align: center;
-  font-size: 1.35rem;
+    text-align: center;
+    font-size: 1.35rem;
 }
 
 .income__title {
-  color: var(--primary-color);
+    color: var(--primary-color);
 }
 .expenses__title {
-  color: var(--secondary-color);
+    color: var(--secondary-color);
 }
 
 .income .item {
-  border-bottom: 1px ridge var(--primary-color);
+    border-bottom: 1px ridge var(--primary-color);
 }
 
 .expenses .item {
-  border-bottom: 1px ridge var(--secondary-color);
+    border-bottom: 1px ridge var(--secondary-color);
 }
 
 .item {
-  padding: 13px;
-  display: flex;
-  font-family: "Poppins";
+    padding: 13px;
+    display: flex;
+    font-family: "Poppins";
 }
 
 .income .item:first-child {
-  border-top: 1px ridge var(--primary-color);
+    border-top: 1px ridge var(--primary-color);
 }
 
 .expenses .item:first-child {
-  border-top: 1px ridge var(--secondary-color);
+    border-top: 1px ridge var(--secondary-color);
 }
 
 .item:nth-child(even) {
-  background-color: #f7f7f7;
+    background-color: #f7f7f7;
 }
 
 .item__description,
 .item__value {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
 
 .item__description {
-  flex: 1;
+    flex: 1;
 }
 
 .item__value {
-  transition: transform 0.3s;
+    transition: transform 0.3s;
 }
 
 .item__value i {
-  font-size: 0.8rem;
-  vertical-align: middle;
+    font-size: 0.8rem;
+    vertical-align: middle;
 }
 
 .item__value i:nth-of-type(2) {
-  font-size: small;
-  vertical-align: baseline;
-  margin-left: 1.5px;
+    font-size: small;
+    vertical-align: baseline;
+    margin-left: 1.5px;
 }
 
 .item__percentage {
-  transition: transform 0.3s;
-  font-size: 1rem;
-  background-color: #ffdad9;
-  padding: 3px;
-  border-radius: 3px;
-  width: fit-content;
-  text-align: center;
+    transition: transform 0.3s;
+    font-size: 1rem;
+    background-color: #ffdad9;
+    padding: 3px;
+    border-radius: 3px;
+    width: fit-content;
+    text-align: center;
 }
 
 .income .item__value,
 .income .item__delete--btn {
-  color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .expenses .item__value,
 .expenses .item__percentage,
 .expenses .item__delete--btn {
-  color: var(--secondary-color);
+    color: var(--secondary-color);
 }
 
 .item__percentage,
 .item__value,
 .item__delete {
-  display: inline-block;
+    display: inline-block;
 }
 
 .item__delete--btn {
-  font-size: 1.65rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  vertical-align: middle;
-  transition: opacity 0.3s;
-  opacity: 0;
+    font-size: 1.65rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .item__delete--btn:active {
-  transform: translateY(2px);
+    transform: translateY(2px);
 }
 
 .item:hover .item__delete--btn {
-  opacity: 1;
+    opacity: 1;
+    pointer-events: all;
 }
 
 .item:hover .item__value {
-  transform: translateX(-20px);
+    transform: translateX(-20px);
 }
 
 .item:hover .item__percentage {
-  transform: translateX(-20px);
+    transform: translateX(-20px);
 }
 
 .unpaid {
-  background-color: #ffdad9 !important;
-  cursor: pointer;
-  color: var(--secondary-color);
+    background-color: #ffdad9 !important;
+    cursor: pointer;
+    color: var(--secondary-color);
 }
 
 .unpaid .item__percentage {
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
 }
 
 .unpaid:hover .item__description {
-  font-weight: 900;
+    font-weight: 900;
 }
 
 .message {
-  position: fixed;
-  left: 0;
-  top: 25px;
-  width: fit-content;
-  background-color: #333;
-  color: #f5f5f5;
-  text-transform: capitalize;
-  padding: 1rem 1.5rem;
-  border-radius: 0 6px 6px 0;
-  font-size: 1.05rem;
-  font-weight: bolder;
-  transform: translateX(-100%);
-  transition: transform 0.3s;
+    position: fixed;
+    left: 0;
+    top: 25px;
+    width: fit-content;
+    background-color: #333;
+    color: #f5f5f5;
+    text-transform: capitalize;
+    padding: 1rem 1.5rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 1.05rem;
+    font-weight: bolder;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
 }
 
 .message.active {
-  transform: translateX(0);
+    transform: translateX(0);
 }
 
 @media only screen and (max-width: 991px) {
-  .container {
-    width: 100%;
-  }
+    .container {
+        width: 100%;
+    }
 
-  .budget__income,
-  .budget__expenses {
-    width: 70%;
-  }
+    .budget__income,
+    .budget__expenses {
+        width: 70%;
+    }
 }
 
 @media only screen and (max-width: 768px) {
-  .container {
-    flex-wrap: wrap;
-  }
+    .container {
+        flex-wrap: wrap;
+    }
 
-  .income,
-  .expenses {
-    flex: 1 0 80% !important;
-    max-width: 80% !important;
-    margin: 0 auto;
-  }
+    .income,
+    .expenses {
+        flex: 1 0 80% !important;
+        max-width: 80% !important;
+        margin: 0 auto;
+    }
 
-  .income {
-    margin-bottom: 4rem !important;
-  }
+    .income {
+        margin-bottom: 4rem !important;
+    }
 }
 
 @media only screen and (max-width: 600px) {
-  :root {
-    font-size: 12px !important;
-  }
+    :root {
+        font-size: 12px !important;
+    }
 
-  .budget__title {
-    font-size: 2.4rem !important;
-  }
+    .budget__title {
+        font-size: 2.4rem !important;
+    }
 
-  .budget__income,
-  .budget__expenses {
-    width: 90% !important;
-  }
+    .budget__income,
+    .budget__expenses {
+        width: 90% !important;
+    }
 
-  .container {
-    flex-wrap: wrap;
-  }
+    .container {
+        flex-wrap: wrap;
+    }
 
-  .income,
-  .expenses {
-    flex: 1 0 90% !important;
-    max-width: 90% !important;
-    margin: 0 auto;
-  }
+    .income,
+    .expenses {
+        flex: 1 0 90% !important;
+        max-width: 90% !important;
+        margin: 0 auto;
+    }
 
-  .income {
-    margin-bottom: 4rem !important;
-  }
+    .income {
+        margin-bottom: 4rem !important;
+    }
 
-  .income .income__title,
-  .expenses .expenses__title {
-    text-align: center;
-  }
+    .income .income__title,
+    .expenses .expenses__title {
+        text-align: center;
+    }
 
-  .income .income__title,
-  .expenses .expenses__title {
-    font-size: 1.5rem !important;
-  }
+    .income .income__title,
+    .expenses .expenses__title {
+        font-size: 1.5rem !important;
+    }
 
-  .item__description,
-  .item__value {
-    font-size: 1.42rem !important;
-  }
+    .item__description,
+    .item__value {
+        font-size: 1.42rem !important;
+    }
 
-  .add__container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+    .add__container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+    }
 
-  .add__type,
-  .add__description,
-  .add__value {
-    font-weight: 600;
-  }
+    .add__type,
+    .add__description,
+    .add__value {
+        font-weight: 600;
+    }
 
-  .add__description,
-  .add__value {
-    font-size: 1.42rem;
-  }
+    .add__description,
+    .add__value {
+        font-size: 1.42rem;
+    }
 
-  .add__description {
-    margin-bottom: 1rem !important;
-    flex: 1 0 80%;
-    margin-right: 0 !important;
-  }
+    .add__description {
+        margin-bottom: 1rem !important;
+        flex: 1 0 80%;
+        margin-right: 0 !important;
+    }
 
-  .add__type {
-    font-size: 1.7rem !important;
-    flex: 1 0 17%;
-    margin-top: -13px;
-  }
+    .add__type {
+        font-size: 1.7rem !important;
+        flex: 1 0 17%;
+        margin-top: -13px;
+    }
 
-  .add__value {
-    order: 4;
-    flex: 1 0 80%;
-    margin: 0 !important;
-  }
+    .add__value {
+        order: 4;
+        flex: 1 0 80%;
+        margin: 0 !important;
+    }
 
-  .add__btn {
-    margin-top: 7px;
-    order: 3;
-    flex: 1 0 20%;
-    padding-right: 1rem;
-  }
+    .add__btn {
+        margin-top: 7px;
+        order: 3;
+        flex: 1 0 20%;
+        padding-right: 1rem;
+    }
 }
 
 @media only screen and (max-width: 360px) {
-  .add {
-    padding: 0.88rem !important;
-  }
+    .add {
+        padding: 0.88rem !important;
+    }
 
-  .add__description,
-  .add__value {
-    flex-basis: 78%;
-    max-width: 78%;
-  }
+    .add__description,
+    .add__value {
+        flex-basis: 78%;
+        max-width: 78%;
+    }
 
-  .add__type,
-  .add__btn {
-    flex-basis: 17%;
-    max-width: 17%;
-  }
+    .add__type,
+    .add__btn {
+        flex-basis: 17%;
+        max-width: 17%;
+    }
 }
 
 /* FOOTER */
 footer.footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 8vh;
-  background: transparent;
-  font-size: 1.1rem;
-  font-family: 'Comic sans MS', "Cutive";
-  margin-top: 22vh;
-  text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 8vh;
+    background: transparent;
+    font-size: 1.1rem;
+    font-family: "Comic sans MS", "Cutive";
+    margin-top: 22vh;
+    text-transform: capitalize;
 }

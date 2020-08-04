@@ -86,11 +86,11 @@ const budgetController = (_ => {
         },
 
         calculatePercentages() {
-            data.allItems.exp.forEach(el => el.calcPercentage(data.totals.inc));
+            data.allItems.exp.forEach(expense => expense.calcPercentage(data.totals.inc));
         },
 
         get getPercentages() {
-            return data.allItems.exp.map(el => el.getPercentage);
+            return data.allItems.exp.map(expense => expense.getPercentage);
         },
 
         isBudgetPresent: (type, desc, val) =>
@@ -139,9 +139,10 @@ const UIController = (_ => {
 
         if (int.length > 3) int = `${int.substring(0, int.length - 3)},${int.substring(int.length - 3)}`;
 
-        return `${
-            type === "exp" ? `<i class="fas fa-minus"></i>` : `<i class="fas fa-plus"></i>`
-        } ${int}.${dec}<i class="fas fa-dollar-sign"></i>`;
+        return `
+            ${type === "exp" ? `<i class="fas fa-minus"></i>` : `<i class="fas fa-plus"></i>`}
+            ${int}.${dec}<i class="fas fa-dollar-sign"></i>
+        `;
     };
 
     const clearDomLabels = (...domLabels) => domLabels.forEach(domLabel => (domLabel.textContent = ""));
