@@ -93,8 +93,10 @@ const budgetController = (_ => {
             return data.allItems.exp.map(expense => expense.getPercentage);
         },
 
-        isBudgetPresent: (type, desc, val) =>
-            data.allItems[type].some(({ description, value }) => description.includes(desc) && value === val),
+        isBudgetPresent: (type, newDescription, newValue) =>
+            data.allItems[type].some(
+                ({ description, value }) => description.includes(newDescription) && value === newValue,
+            ),
     };
 })();
 
