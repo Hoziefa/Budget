@@ -1,5 +1,5 @@
 //SECTION BUDGET CONTROLLER
-const budgetController = (_ => {
+const budgetController = (() => {
     class Expenses {
         constructor(id, description, value) {
             this.id = id;
@@ -10,9 +10,7 @@ const budgetController = (_ => {
         percentage = -1;
 
         calcPercentage(totalIncome) {
-            totalIncome > 0
-                ? (this.percentage = Math.round((this.value / totalIncome) * 100))
-                : (this.percentage = -1);
+            totalIncome > 0 ? (this.percentage = Math.round((this.value / totalIncome) * 100)) : (this.percentage = -1);
         }
 
         get getPercentage() {
@@ -28,21 +26,7 @@ const budgetController = (_ => {
         }
     }
 
-    const data = {
-        allItems: {
-            exp: [],
-            inc: [],
-        },
-
-        totals: {
-            exp: 0,
-            inc: 0,
-        },
-
-        budget: 0,
-
-        percentage: -1,
-    };
+    const data = { allItems: { exp: [], inc: [] }, totals: { exp: 0, inc: 0 }, budget: 0, percentage: -1 };
 
     const calculateTotal = type => {
         data.totals[type] = data.allItems[type].reduce((acc, { value }) => acc + value, 0);
@@ -94,14 +78,12 @@ const budgetController = (_ => {
         },
 
         isBudgetPresent: (type, newDescription, newValue) =>
-            data.allItems[type].some(
-                ({ description, value }) => description.includes(newDescription) && value === newValue,
-            ),
+            data.allItems[type].some(({ description, value }) => description === newDescription && value === newValue),
     };
 })();
 
 //SECTION UI CONTROLLER
-const UIController = (_ => {
+const UIController = (() => {
     const DOMStrings = {
         addBtn: ".add__btn",
         inputType: ".add__type",
@@ -198,12 +180,11 @@ const UIController = (_ => {
                 `;
             }
 
-            let newMarkup;
-            newMarkup = markup.replace("%id%", id);
-            newMarkup = newMarkup.replace("%description%", description);
-            newMarkup = newMarkup.replace("%value%", formatNumber(value, type));
+            markup = markup.replace("%id%", id);
+            markup = markup.replace("%description%", description);
+            markup = markup.replace("%value%", formatNumber(value, type));
 
-            document.querySelector(element).insertAdjacentHTML("beforeend", newMarkup);
+            document.querySelector(element).insertAdjacentHTML("beforeend", markup);
         },
 
         deleteItem(selectorID) {
@@ -219,19 +200,21 @@ const UIController = (_ => {
         },
 
         displayBudget({ budget, totalInc, totalExp, percentage }) {
+            const { domBudgetLabel, domIncomeLabel, domExpensesLabel, domPercentageLabel } = DOMStrings;
+
+            clearDomLabels(domBudgetLabel, domIncomeLabel, domExpensesLabel);
+
             let type = budget > 0 ? "inc" : "exp";
 
-            clearDomLabels(DOMStrings.domBudgetLabel, DOMStrings.domIncomeLabel, DOMStrings.domExpensesLabel);
+            domBudgetLabel.insertAdjacentHTML("afterbegin", `${formatNumber(budget, type)}`);
 
-            DOMStrings.domBudgetLabel.insertAdjacentHTML("afterbegin", `${formatNumber(budget, type)}`);
+            domIncomeLabel.insertAdjacentHTML("afterbegin", `${formatNumber(totalInc, "inc")}`);
 
-            DOMStrings.domIncomeLabel.insertAdjacentHTML("afterbegin", `${formatNumber(totalInc, "inc")}`);
-
-            DOMStrings.domExpensesLabel.insertAdjacentHTML("afterbegin", formatNumber(totalExp, "exp"));
+            domExpensesLabel.insertAdjacentHTML("afterbegin", formatNumber(totalExp, "exp"));
 
             percentage > 0 && percentage < 10000
-                ? (DOMStrings.domPercentageLabel.textContent = `${percentage}%`)
-                : (DOMStrings.domPercentageLabel.textContent = `---`);
+                ? (domPercentageLabel.textContent = `${percentage}%`)
+                : (domPercentageLabel.textContent = `---`);
         },
 
         displayPercentages(percentages) {
@@ -297,7 +280,7 @@ const UIController = (_ => {
 
 //SECTION GLOBAL APP CONTROLLER
 const controller = ((budgetCtrl, UICtrl) => {
-    const setupEventListeners = _ => {
+    const setupEventListeners = () => {
         const { addBtn, container, inputType } = UICtrl.getDOMStrings;
 
         document.querySelector(addBtn).addEventListener("click", ctrlAddItem);
@@ -309,7 +292,7 @@ const controller = ((budgetCtrl, UICtrl) => {
         document.querySelector(inputType).addEventListener("change", UICtrl.changedType);
     };
 
-    const updateBudget = _ => {
+    const updateBudget = () => {
         budgetCtrl.calculateBudget();
 
         const budget = budgetCtrl.getBudget;
@@ -317,7 +300,7 @@ const controller = ((budgetCtrl, UICtrl) => {
         UICtrl.displayBudget(budget);
     };
 
-    const updatePercentages = _ => {
+    const updatePercentages = () => {
         budgetCtrl.calculatePercentages();
 
         const percentages = budgetCtrl.getPercentages;
@@ -325,7 +308,7 @@ const controller = ((budgetCtrl, UICtrl) => {
         UICtrl.displayPercentages(percentages);
     };
 
-    const ctrlAddItem = _ => {
+    const ctrlAddItem = () => {
         const { type, description, value } = UICtrl.getInputData;
 
         if (!description || !description.match(/\b[A-z]/g) || isNaN(value) || value <= 0) return;
